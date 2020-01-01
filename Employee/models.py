@@ -21,8 +21,8 @@ class Products(models.Model):
     price=models.IntegerField()
     description=models.CharField(max_length=300, blank=True)
 
-    def addNewProduct(name,price,decription):
-        p = Product(name=name, price=price,description=description)
+    def addNewProduct(name,price,description):
+        p = Products(name=name, price=price,description=description)
         p.save()
 
     def viewProducts():
