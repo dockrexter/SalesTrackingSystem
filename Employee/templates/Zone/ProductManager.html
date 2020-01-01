@@ -11,8 +11,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
 
-        <script src =  
-"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"> 
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"> 
         </script> 
           
 	<style>
@@ -75,7 +74,16 @@
 
 			}
 		}
-		
+		.center {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.hideform {
+    display: none;
+}
 		.custab{
     border: 1px solid #ccc;
     padding: 5px;
@@ -91,6 +99,7 @@
 </head>
 
 <body>
+    
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar -->
 		<div class="bg-light border-right" id="sidebar-wrapper">
@@ -119,7 +128,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<form class="form-inline my-2 my-lg-0" action='logOut.php' method="post">
+				<form class="form-inline my-2 my-lg-0" action='/login/logOut' method="get">
 					<button class="btn btn-outline-success btn-md" style="  position: relative; left:900px;" type="submit">Logout</button>
 				</form>
 			</nav>
@@ -130,42 +139,71 @@
     <div class="row col-md-6 col-md-offset-2 custyle">
     <table  name = "producttable" id="tableID"class="table table-striped custab">
     <thead>
-    <a href="#" class="btn btn-primary btn-xs pull-right" onclick = "addproduct()"><b>+</b> Add new product</a>
+    <button class="btn btn-lg btn-primary" id="show">Add New Product</button>
         <tr>
             <th>Product Name</th>
+            <th>Price</th>
 			
             <th class="text-center">Action</th>
         </tr>
     </thead>
 	<tbody>
-  
+        {% for item in product %}
             <tr>
-                <td>Products</td>
+
+                <td>{{item.name}} </td>
+                <td>{{item.price}} </td> 
+                
                 <td clas><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
             </tr>
-				</tbody>
+            {% endfor %}
+	</tbody>
 
 
     </table>
 	
+	<div class="center hideform">
+    <button id="close" style="float: right;">X</button>
+        <form action="/Employee/ProductManager/addNewProduct" method="POST">{% csrf_token %}
+            Product Name:<br>
+            <input type="text" name="name" value="lays">
+            <br>Product price:<br>
+            <input type="text" name="price" value="20">
+            <br>Product Description<br>
+            <input type="text" name="description" value="20grams">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     </div>
 </div>
           
-        <button onclick = "addproduct()">  
-            Click here 
-        </button>  
+   
           
         <!-- Script to insert new row in a table -->
         <script>  
             function addproduct() {
 		var tableRef = document.getElementById('tableID').getElementsByTagName('tbody')[0];
 		var product = prompt("Please enter product name:");
-
 		var myHtmlContent =  ` <td> ${product}</td> <td><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>`;
 		var newRow = tableRef.insertRow(tableRef.rows.length);
 		newRow.innerHTML = myHtmlContent;
-
             } 
+
+			function deleteproduct(){
+
+
+			}
+
+		$('#show').on('click', function () {
+            $('.center').show();
+            $(this).hide();
+        })
+
+$('#close').on('click', function () {
+    $('.center').hide();
+    $('#show').show();
+})
         </script>  
         </center> 
     </div>

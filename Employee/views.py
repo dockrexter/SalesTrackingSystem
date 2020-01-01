@@ -59,15 +59,18 @@ class ProductManager(View,Employee):
         if(request.user):
             usr_group = request.user.groups.values_list('name',flat = True)
             if(usr_group[0]=="ProductManager"):
-                return render(request,'Zone/ProductManager.html')
+                product=Products.viewProducts()
+                context={"product":product}
+                return render(request,'Zone/ProductManager.html',context)
             else:
                 return HttpResponseRedirect("/login")
         else:
             return HttpResponseRedirect("/login")
 
     def addNewProduct(request):
-        if request.method=="POST":
-            Products.addNewProduct(request.name,request.price,request.description)
+        if request.method == 'POST':
+            Products.addNewProduct(request.POST["name"],request.POST["price"],request.POST["description"])
+            return HttpResponseRedirect("/Employee/ProductManager")
         else:
             return HttpResponse("hello")
         # return HttpResponse("hello")
