@@ -24,9 +24,9 @@ def user_login(request):
             if(typeOf == 'NationalSalesManager' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/NationalSalesManager")
-            if(typeOf == 'ProductSalesManager' and usr_group[0]==typeOf):
+            if(typeOf == 'ProductManager' and usr_group[0]==typeOf):
                 login(request,user)
-                return HttpResponseRedirect("/Employee/ProductSalesManager")      
+                return HttpResponseRedirect("/Employee/ProductManager")      
             if(typeOf == 'SalesForce' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/SalesForce")   
