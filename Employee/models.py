@@ -21,6 +21,13 @@ class Products(models.Model):
     price=models.IntegerField()
     description=models.CharField(max_length=300, blank=True)
 
+    def addNewProduct(name,price,decription):
+        p = Product(name=name, price=price,description=description)
+        p.save()
+
+    def viewProducts():
+        return Products.objects.all()
+
 class StockManager(models.Model):
     product=models.OneToOneField(Products, on_delete=models.CASCADE)
     quantity=models.IntegerField()
@@ -32,7 +39,9 @@ class Orders(models.Model):
     zone=models.OneToOneField(Zones, on_delete=models.CASCADE)
     retailer=models.CharField(max_length=300)
 
-
-
+class Sales(models.Model):
+    product=models.OneToOneField(Products, on_delete=models.CASCADE)
+    zone=models.OneToOneField(Zones, on_delete=models.CASCADE)
+    quantity=models.IntegerField(blank=True)
 
 

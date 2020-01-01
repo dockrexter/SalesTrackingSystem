@@ -65,6 +65,13 @@ class ProductManager(View,Employee):
         else:
             return HttpResponseRedirect("/login")
 
+    def addNewProduct(request):
+        if request.method=="POST":
+            Products.addNewProduct(request.name,request.price,request.description)
+        else:
+            return HttpResponse("hello")
+        # return HttpResponse("hello")
+
 class SalesForce(View,Employee):   
     def get(self,request):
         if(request.user):
