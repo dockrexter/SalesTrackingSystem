@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+
+	<!-- Bootstrap core CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"> 
+        </script>
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  
+  <style>
+		body {
+			overflow-x: hidden;
+		}
+		#sidebar-wrapper {
+			min-height: 100vh;
+			margin-left: -15rem;
+			-webkit-transition: margin 0.25s ease-out;
+			-moz-transition: margin 0.25s ease-out;
+			-o-transition: margin 0.25s ease-out;
+			transition: margin 0.25s ease-out;
+		}
+		#sidebar-wrapper .sidebar-heading {
+			padding: 0.875rem 1.25rem;
+			font-size: 1.2rem;
+			background: #3D9970;
+		}
+		#sidebar-wrapper .list-group {
+			width: 15rem;
+			background: #3D9970;
+		}
+		#page-content-wrapper {
+			min-width: 100vw;
+		}
+		#wrapper.toggled #sidebar-wrapper {
+			margin-left: 0;
+		}
+		@media (min-width: 768px) {
+			#sidebar-wrapper {
+				margin-left: 0;
+			}
+			#page-content-wrapper {
+				min-width: 0;
+				width: 100%;
+			}
+			#wrapper.toggled #sidebar-wrapper {
+				margin-left: -15rem;
+			}
+		}
+		.center {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+      #page-content-wrapper{
+                height:1000px;
+                background-color:#AAAAAA;
+
+      }
+      #navid{
+                background-color: #39CCCC;
+      }
+      th{
+        color:White;
+        background-color:#7FDBFF;:
+      }
+      td{
+        color:#111111;
+      }
+      .fas{
+        color:#0074D9;
+      }
+      .rediconcolor{
+        color:red;
+      }
+      
+
+	</style>
+</head>
+
+<body>
+    
+
+		<div id="page-content-wrapper">
+			<nav id ="navid" class="navbar navbar-expand-lg  border-bottom">
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<form class="form-inline my-2 my-lg-0" action='/login/logOut' method="post">{% csrf_token %}
+					<button class="btn btn-outline-success btn-md" style="  position: relative; left:1200px;" type="submit">Logout</button>
+				</form>
+			</nav>
+<br>
+<br>
+
+<div class="container">
+    <table  class="table table-striped custab">
+    <thead>
+	
+
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Retailer</th>
+
+            <th class="text-center" colspan="2">Action</th>
+
+        </tr>
+    </thead>
+    
+	<tbody>
+        {% for item in order %}
+            <tr>
+
+                <td>{{item.product.name}} </td>
+                <td>{{item.product.price}} </td>
+                <td>{{item.quantity}} </td>
+                <td>{{item.retailer}} </td>
+                <form action="/Employee/Distributor/confirmOrder" method="post">{% csrf_token %}
+                    <input type="hidden" id="productId" name="productId" value={{item.id}}>
+				    <td><button id={{item.id}} class="btn" type="submit" > <span><i class="fas fa-check-circle fa-2x "></i>
+                </span> Confirm Delivery</button></td>
+                </form>
+		
+		   </tr>
+            {% endfor %}
+	</tbody>
+    
+
+    </table>
+	
+    </div>
+</div>
+    </div>
+	</div>
+	<div>
+</div>
+
+
+
+    
+   
+
+
+
+
+
+
+</body>
+
+</html>

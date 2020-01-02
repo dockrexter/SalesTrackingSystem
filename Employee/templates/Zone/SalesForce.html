@@ -12,17 +12,25 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <style>
+    		body {
+  background: url(back.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+		}
+
       .container {
         width: 100%;
         height: 100%;
         min-height: 100%;
       }
-
       .booking-form {
-        background-color: hsla(14, 100%, 53%, 0.6);
-        padding: 50px 20px;
+        background-color: #7FDBFF;
+        padding: 10px 10px;
         border-radius: 4px;
         position: relative;
         left: 100px;
@@ -31,7 +39,7 @@
 
       .booking-form .form-group {
         position: relative;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         padding: 0.2px;
       }
 
@@ -57,79 +65,74 @@
 
         transition: 0.2s all;
       }
+
+      #page-content-wrapper{
+                background-color: #7FDBFF;
+                height: 1000px;
+
+
+      }
+      #navid{
+                background-color: #39CCCC;
+      }
+
     </style>
   </head>
 
   <body>
+
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<nav id="navid" class="navbar navbar-expand-lg border-bottom">
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<form class="form-inline my-2 my-lg-0" action='/login/logOut' method="">
+					<button class="btn btn-danger btn-lg" style="  position: relative; left:1200px;" type="submit">Logout</button>
+				</form>
+			</nav>
     <div class="container">
       <div class="col-md-7 col-md-push-5"></div>
       <div class="col-md-4 col-md-pull-7">
         <div class="booking-form">
-          <form>
+          <!-- action="/Employee/SalesForce/BookOrder" type="submit" -->
+          <form id="my-form" method="POST" action="/Employee/SalesForce/bookOrder">{% csrf_token %}
             <span>
-              <center><h1>Booking</h1></center></span
-            >
+              <center><h1>Booking</h1></center></span>
             <div class="form-group">
               <span class="form-label">Product name</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Enter the product name"
-              />
-            </div>
-
-            <div class="form-group">
-              <span class="form-label">Product ID</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Enter the product id"
-              />
+              <select name="name"class="form-control">
+                {% for item in product %}
+                <option>{{item.product.name}}</option>
+                {% endfor %}
+              </select>
+              <span class="select-arrow"></span>
             </div>
             <div class="form-group">
-              <span class="form-label">Distributor name</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Enter the Distributor name"
-              />
-            </div>
-            <div class="form-group">
-              <span class="form-label">Distributor ID</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Enter the Distributor ID"
-              />
-            </div>
-            <div class="form-group">
-              <span class="form-label">Shop No</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="Enter the Shop No"
-              />
-            </div>
-
-            <div class="form-group">
-              <span class="form-label">Quantity</span>
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
+              <span class="form-label">Zone</span>
+              <select name="zone"class="form-control">
+                {% for item in zone %}
+                <option>{{item.name}}</option>
+                {% endfor %}
               </select>
               <span class="select-arrow"></span>
             </div>
 
+            <div class="form-group">
+              <span class="form-label">Retailor Address</span>
+              <input name="retailer"class="form-control" type="text" placeholder="Enter the Retailor Address"/>
+            </div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+              <span class="form-label">Quantity</span>
+                <input name="quantity" class="form-control" type="text" placeholder="Enter the Quantity"/>
+            </div>
             <div class="form-btn">
-              <button class="submit-btn">submit</button>
+              <input class="submit-btn" type="submit" value="Submit">
             </div>
           </form>
         </div>
