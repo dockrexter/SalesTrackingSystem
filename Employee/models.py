@@ -2,9 +2,13 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from datetime import date
 
 class Zones(models.Model):
     name=models.CharField(max_length=30)
+    
+    def viewZones():
+        return Zones.objects.all()
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -58,11 +62,37 @@ class Orders(models.Model):
     zone=models.ForeignKey(Zones, on_delete=models.CASCADE)
     retailer=models.CharField(max_length=300)
 
+    def viewStock():
+        return StockManager.viewStock()
+
+    def ViewZones():
+        return Zones.viewZones()
+
+    def bookOrder(name,quantity,zone,retailer):
+        p = Products.objects.get(name=name)
+        z = Zones.objects.get(name=zone)
+        b = Orders(product=p,quantity=quantity,zone=z,retailer=retailer)
+        b.save();
+
+    def viewOrders(zone):
+        return Orders.objects.filter(zone=zone)
+
+    def getOrder(id):
+        return Orders.objects.get(id=id)
+        
+
+
 
 
 class Sales(models.Model):
     product=models.ForeignKey(Products, on_delete=models.CASCADE)
     zone=models.ForeignKey(Zones, on_delete=models.CASCADE)
     quantity=models.IntegerField(blank=True)
+    date = models.DateField(auto_now=True,auto_now_add=False)
+
+    def addSales(product,zone,quantity):
+        s=Sales(product=product,zone=zone,quantity=quantity)
+        s.save()
+
 
 

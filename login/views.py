@@ -29,6 +29,9 @@ def user_login(request):
             elif(typeOf == 'SalesForce' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/SalesForce")
+            elif(typeOf == 'Distributor' and usr_group[0]==typeOf):
+                login(request,user)
+                return HttpResponseRedirect("/Employee/Distributor")
             else:
                 return render(request,'login/login.html')
         else:
