@@ -5,9 +5,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from datetime import date
-from . import order
-
-
 # Create your views here.
 
 class Employee:
@@ -59,8 +56,8 @@ class ProductManager(View,Employee):
         if(request.user):
             usr_group = request.user.groups.values_list('name',flat = True)
             if(usr_group[0]=="ProductManager"):
-                product=Products.viewProducts()
-                context={"product":product}
+                product=StockManager.viewStock()
+                context={"product":product,"user":request.user}
                 return render(request,'Zone/ProductManager.html',context)
             else:
                 return HttpResponseRedirect("/login")
@@ -69,11 +66,18 @@ class ProductManager(View,Employee):
 
     def addNewProduct(request):
         if request.method == 'POST':
-            Products.addNewProduct(request.POST["name"],request.POST["price"],request.POST["description"])
+            StockManager.addNewProduct(request.POST["name"],request.POST["price"],request.POST["description"])
             return HttpResponseRedirect("/Employee/ProductManager")
         else:
             return HttpResponse("hello")
-        # return HttpResponse("hello")
+
+    def addStock(request):
+        if request.method == 'POST':
+            StockManager.addStock(request.POST["quantity"],request.POST["productId"])
+            return HttpResponseRedirect("/Employee/ProductManager")
+        else:
+            return HttpResponse("hello")
+
 
 class SalesForce(View,Employee):   
     def get(self,request):
