@@ -16,20 +16,21 @@ def user_login(request):
         user=authenticate(request,username=username,password=password)
         if user:
             usr_group = user.groups.values_list('name',flat = True)
-            print(usr_group[0])
             if(typeOf == 'ZoneSalesManager' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/ZoneSalesManager")
                 # render(request,'GM/index.html',{'userName': user, 'type':typeOf})        
-            if(typeOf == 'NationalSalesManager' and usr_group[0]==typeOf):
+            elif(typeOf == 'NationalSalesManager' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/NationalSalesManager")
-            if(typeOf == 'ProductManager' and usr_group[0]==typeOf):
+            elif(typeOf == 'ProductManager' and usr_group[0]==typeOf):
                 login(request,user)
                 return HttpResponseRedirect("/Employee/ProductManager")      
-            if(typeOf == 'SalesForce' and usr_group[0]==typeOf):
+            elif(typeOf == 'SalesForce' and usr_group[0]==typeOf):
                 login(request,user)
-                return HttpResponseRedirect("/Employee/SalesForce")   
+                return HttpResponseRedirect("/Employee/SalesForce")
+            else:
+                return render(request,'login/login.html')
         else:
             return render(request,'login/login.html')
         # userName = users(request.POST)

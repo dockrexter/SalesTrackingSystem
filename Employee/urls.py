@@ -7,6 +7,7 @@ urlpatterns = [
     path('NationalSalesManager', views.NationalSalesManager.as_view(), name='NationalSalesManager'),
     path('ProductManager', views.ProductManager.as_view(), name='ProductManager'),
     path('ProductManager/addNewProduct', views.ProductManager.addNewProduct, name='ProductManager'),
+    path('ProductManager/addStock', views.ProductManager.addStock, name='addStock'),
     path('SalesForce', views.SalesForce.as_view(), name='SalesForce'),
 ]
 
